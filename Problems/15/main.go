@@ -16,9 +16,12 @@ func threeSum_Fully(nums []int) [][]int {
 	res := make([][]int, 0)
 
 	for i := 0; i < len(nums); {
-		if i != 0 && nums[i] == nums[i-1] {
-			continue
-		}
+		// Different Idea
+		/*
+			if i != 0 && nums[i] == nums[i-1] {
+				continue
+			}
+		*/
 		for j, k := i+1, len(nums)-1; j < k; {
 			n := nums[i] + nums[j] + nums[k]
 			if n > 0 {
