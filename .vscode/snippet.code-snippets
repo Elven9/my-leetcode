@@ -18,7 +18,7 @@
 
   "Solution Table Header": {
     "scope": "markdown",
-    "prefix": "solth",
+    "prefix": "solution",
     "body": [
       "| Solution Idx | Time Complexity | Space Complexity | Comment |",
       "| ------------ | --------------- | ---------------- | ------- |"
