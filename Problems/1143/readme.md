@@ -8,3 +8,9 @@
 ## Way to Improve ?
 
 Just like walking the maze, maybe there are some redundant move on the map.
+
+## Naive solution
+
+O(mn\*(m+n))
+
+Brute force and compare each character
