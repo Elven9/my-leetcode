@@ -30,11 +30,12 @@ func reverseKGroup(head *ListNode, k int) *ListNode {
 	// Other Idea
 	// [ ] kcnt 去紀錄，最後以經到 Null 但 kcnt 還不等於 0，把後面重新 Reverse
 
-	if head == nil {
-		return nil
+	// Edge Cases
+	if head == nil || k == 1 {
+		return head
 	}
 
-	// Implementation Cleaness
+	// Implementation Simplicity
 	res := ListNode{
 		Next: head,
 	}
