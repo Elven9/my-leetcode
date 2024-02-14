@@ -20,7 +20,7 @@ func frequencySort(s string) string {
 
 	// Get charset
 	charset := make([]rune, 0)
-	for k, _ := range freq {
+	for k := range freq {
 		charset = append(charset, k)
 	}
 

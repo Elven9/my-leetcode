@@ -79,12 +79,12 @@ func setZeroes_Naive(matrix [][]int) {
 	}
 
 	// Zero out in place
-	for k, _ := range tRow {
+	for k := range tRow {
 		for i := 0; i < n; i++ {
 			matrix[k][i] = 0
 		}
 	}
-	for k, _ := range tCol {
+	for k := range tCol {
 		for i := 0; i < m; i++ {
 			matrix[i][k] = 0
 		}

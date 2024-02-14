@@ -22,11 +22,12 @@ func isValidBST(root *TreeNode) bool {
 	return result
 }
 
+//nolint:ineffassign
 func vTree(root *TreeNode) (bool, int, int) {
 	// isOk, min, max
 	// root is not allowed nil
 	result, ok := true, true
-	lmin, lmax, rmin, rmax := root.Val, root.Val, root.Val, root.Val
+	lmin, lmax, rmin, rmax := 0, 0, 0, 0
 	if root.Left != nil {
 		ok, lmin, lmax = vTree(root.Left)
 		result = result && ok && lmax < root.Val

@@ -45,7 +45,7 @@ func reverseKGroup(head *ListNode, k int) *ListNode {
 	edptr := head
 	prevptr := &res
 	cur := head
-	nptr := head.Next
+	var nptr *ListNode
 
 	// Counter Def
 	kcnt := k
