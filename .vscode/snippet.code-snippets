@@ -36,5 +36,11 @@
       "using namespace std;"
     ],
     "description": "C++ solution starter template"
+  },
+  "go starter template": {
+    "scope": "go",
+    "prefix": "gotemplate",
+    "body": ["package main", "", "func main() {}"],
+    "description": "Go solution starter template"
   }
 }

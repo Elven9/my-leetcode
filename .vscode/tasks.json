@@ -1,0 +1,25 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "create problem (GO)",
+      "type": "shell",
+      "command": [
+        "mkdir -p Problems/${input:problemID} &&",
+        "touch Problems/${input:problemID}/main.go &&",
+        "touch Problems/${input:problemID}/readme.md &&",
+        "code -r Problems/${input:problemID}/main.go &&",
+        "code -r Problems/${input:problemID}/readme.md"
+      ]
+    }
+  ],
+  "inputs": [
+    {
+      "type": "promptString",
+      "id": "problemID",
+      "description": "Problem ID corresponding to the leetcode problem."
+    }
+  ]
+}
