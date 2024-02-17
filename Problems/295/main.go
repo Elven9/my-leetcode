@@ -1,32 +1,21 @@
 package main
 
-import "container/heap"
+import (
+	"container/heap"
 
-// MaxHeap
-type MaxHeap []int
-
-func (h *MaxHeap) Len() int           { return len(*h) }
-func (h *MaxHeap) Less(i, j int) bool { return (*h)[i] > (*h)[j] } // MaxHeap
-func (h *MaxHeap) Swap(i, j int)      { (*h)[i], (*h)[j] = (*h)[j], (*h)[i] }
-func (h *MaxHeap) Push(x interface{}) {
-	*h = append(*h, x.(int))
-}
-func (h *MaxHeap) Pop() interface{} {
-	ret := (*h)[len(*h)-1]
-	*h = (*h)[:len(*h)-1]
-	return ret
-}
+	"github.com/Elven9/my-leetcode/ds"
+)
 
 // SOL
 type MedianFinder struct {
-	small *MaxHeap
-	large *MaxHeap // With Negative Value
+	small *ds.MaxHeap
+	large *ds.MaxHeap // With Negative Value
 }
 
 func Constructor() MedianFinder {
 	ret := MedianFinder{
-		small: &MaxHeap{},
-		large: &MaxHeap{},
+		small: &ds.MaxHeap{},
+		large: &ds.MaxHeap{},
 	}
 	heap.Init(ret.small)
 	heap.Init(ret.large)

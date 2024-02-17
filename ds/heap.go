@@ -19,3 +19,17 @@ func (h *MinHeap) Pop() any {
 	*h = old[0 : n-1]
 	return x
 }
+
+type MaxHeap []int
+
+func (h *MaxHeap) Len() int           { return len(*h) }
+func (h *MaxHeap) Less(i, j int) bool { return (*h)[i] > (*h)[j] } // MaxHeap
+func (h *MaxHeap) Swap(i, j int)      { (*h)[i], (*h)[j] = (*h)[j], (*h)[i] }
+func (h *MaxHeap) Push(x interface{}) {
+	*h = append(*h, x.(int))
+}
+func (h *MaxHeap) Pop() interface{} {
+	ret := (*h)[len(*h)-1]
+	*h = (*h)[:len(*h)-1]
+	return ret
+}
