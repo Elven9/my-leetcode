@@ -25,3 +25,23 @@ func (h *MaxHeap) Pop() interface{} {
 	*h = (*h)[:len(*h)-1]
 	return ret
 }
+
+type IntSliceMinHeap [][]int
+
+func (h *IntSliceMinHeap) Len() int { return len(*h) }
+func (h *IntSliceMinHeap) Less(i, j int) bool {
+	a, b, m := (*h)[i], (*h)[j], len((*h)[i])
+	for k := 0; k < m; k++ {
+		if a[k] != b[k] {
+			return a[k] < b[k]
+		}
+	}
+	return false
+}
+func (h *IntSliceMinHeap) Swap(i, j int)      { (*h)[i], (*h)[j] = (*h)[j], (*h)[i] }
+func (h *IntSliceMinHeap) Push(x interface{}) { *h = append(*h, x.([]int)) }
+func (h *IntSliceMinHeap) Pop() interface{} {
+	ret := (*h)[len(*h)-1]
+	*h = (*h)[:len(*h)-1]
+	return ret
+}
