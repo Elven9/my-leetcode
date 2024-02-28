@@ -25,3 +25,7 @@ func (s *IntStack) Pop() int {
 	s.sp--
 	return s.mem[s.sp+1]
 }
+
+func (s *IntStack) Size() int {
+	return s.sp + 1
+}
