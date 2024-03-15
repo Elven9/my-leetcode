@@ -11,6 +11,26 @@ func main() {
 }
 
 func productExceptSelf(nums []int) []int {
+	// Scan Twice, Only Product Twice
+	res := make([]int, len(nums))
+
+	cur := 1
+	for i, n := range nums {
+		res[i] = cur
+		cur *= n
+	}
+
+	// Scan Reversely
+	cur = 1
+	for i := len(nums) - 1; i >= 0; i-- {
+		res[i] *= cur
+		cur *= nums[i]
+	}
+
+	return res
+}
+
+func productExceptSelf_Simple(nums []int) []int {
 	// Scan Two Time, Both Direction
 	// O(n), without using division operation
 	// O(n) Space complexity
