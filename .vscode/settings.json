@@ -1,10 +1,19 @@
 {
   // Editor Setting
   "editor.tabCompletion": "off",
-  "editor.quickSuggestions": {
-    "other": "off",
-    "comments": "off",
-    "strings": "off"
+  "[cpp]": {
+    "editor.quickSuggestions": {
+      "other": "off",
+      "comments": "off",
+      "strings": "off"
+    }
+  },
+  "[go]": {
+    "editor.quickSuggestions": {
+      "other": "off",
+      "comments": "off",
+      "strings": "off"
+    }
   },
   "github.copilot.enable": {
     "*": false
