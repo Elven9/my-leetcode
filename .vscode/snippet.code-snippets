@@ -32,6 +32,8 @@
       "#include <vector>",
       "#include <iostream>",
       "#include <string>",
+      "#include <map>",
+      "#include <stack>",
       "",
       "using namespace std;"
     ],

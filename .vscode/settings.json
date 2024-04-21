@@ -17,5 +17,12 @@
   },
   "github.copilot.enable": {
     "*": false
+  },
+  "files.associations": {
+    "*.cu": "cpp",
+    "Makefile.inc": "makefile",
+    "ostream": "cpp",
+    "__hash_table": "cpp",
+    "unordered_map": "cpp"
   }
 }
