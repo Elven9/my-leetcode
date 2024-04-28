@@ -13,6 +13,17 @@
         "code -r Problems/${input:problemID}/main.go &&",
         "code -r Problems/${input:problemID}/readme.md"
       ]
+    },
+    {
+      "label": "create problem (C++)",
+      "type": "shell",
+      "command": [
+        "mkdir -p Problems/${input:problemID} &&",
+        "touch Problems/${input:problemID}/main.cpp &&",
+        "touch Problems/${input:problemID}/readme.md &&",
+        "code -r Problems/${input:problemID}/main.cpp &&",
+        "code -r Problems/${input:problemID}/readme.md"
+      ]
     }
   ],
   "inputs": [
