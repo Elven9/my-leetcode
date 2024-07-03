@@ -19,6 +19,8 @@
     "*": false
   },
   "files.associations": {
-    "*.cu": "cpp"
+    "*.cu": "cpp",
+    "Makefile.inc": "makefile",
+    "vector": "cpp"
   }
 }
