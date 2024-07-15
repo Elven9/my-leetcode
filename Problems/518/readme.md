@@ -8,3 +8,8 @@
 
 i -> coin type
 j -> amount
+
+update at: 2024 / 07 / 15
+
+可以優化成 1D dp 的原因是，剛好我們 DP[i-1] 都只考慮以 coins[i-1] 為結尾的狀態，只要不重複用
+之前判斷過的 coins 就可以避掉重複計算的問題！
