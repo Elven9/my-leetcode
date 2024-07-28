@@ -24,6 +24,22 @@
         "code -r Problems/${input:problemID}/main.cpp &&",
         "code -r Problems/${input:problemID}/readme.md"
       ]
+    },
+    {
+      "label": "commit problem (cpp)",
+      "type": "shell",
+      "command": [
+        "git add Problems/${input:problemID} &&",
+        "git commit -m \"cpp: ${input:problemID} $(head -n 1 Problems/${input:problemID}/readme.md | cut -c 3-)\""
+      ]
+    },
+    {
+      "label": "update problem",
+      "type": "shell",
+      "command": [
+        "git add Problems/${input:problemID} &&",
+        "git commit -m 'update: ${input:problemID}'"
+      ]
     }
   ],
   "inputs": [
