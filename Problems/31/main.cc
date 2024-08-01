@@ -1,4 +1,14 @@
 #include <vector>
+#include <iostream>
+#include <string>
+#include <map>
+#include <stack>
+#include <algorithm>
+#include <numeric>
+#include <unordered_set>
+#include <unordered_map>
+#include <queue>
+#include <functional>
 
 using namespace std;
 
@@ -7,34 +17,31 @@ class Solution
 public:
     void nextPermutation(vector<int> &nums)
     {
-        // Finding Turning Point
-        int tp = nums.size() - 1;
-        while (tp > 0 && nums[tp - 1] >= nums[tp])
-            tp--;
+        int n = nums.size();
 
-        // Search first element that is greater than nums[tp-1]
-        if (tp > 0)
+        int i = n - 2;
+        while (i >= 0 && nums[i] >= nums[i + 1])
+            i--;
+
+        if (i == -1)
         {
-            for (int i = nums.size() - 1; i >= tp; i--)
-            {
-                if (nums[i] > nums[tp - 1])
-                {
-                    int tmp = nums[tp - 1];
-                    nums[tp - 1] = nums[i];
-                    nums[i] = tmp;
-                    break;
-                }
-            }
+            sort(nums.begin(), nums.end());
+            return;
         }
 
-        // Reverse whole list after tp-1
-        int tmp = 0;
-        int ni = nums.size() - 1;
-        while (ni > tp)
-        {
-            tmp = nums[ni];
-            nums[ni--] = nums[tp];
-            nums[tp++] = tmp;
-        }
+        int j = n - 1;
+        while (j > i && nums[j] <= nums[i])
+            j--;
+
+        swap(nums[i], nums[j]);
+        sort(nums.begin() + i + 1, nums.end());
+        return;
     }
 };
+
+// Lexicographical order
+// next permutation => minimun change that can create "greater" (greedy)
+//
+// permutation
+//
+// if no greedy -> gen all possible permutation then sort lexicographically
