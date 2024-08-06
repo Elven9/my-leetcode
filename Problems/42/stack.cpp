@@ -22,7 +22,7 @@ public:
         int ret = 0;
         for (int i = 0; i < H.size(); i++)
         {
-            while (!st.empty() && H[st.top()] < H[i])
+            while (!st.empty() && H[st.top()] <= H[i])
             {
                 int top = st.top();
                 st.pop();
