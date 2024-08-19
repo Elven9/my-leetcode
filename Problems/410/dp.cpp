@@ -39,11 +39,8 @@ public:
     }
 };
 
-// dp[i][k] -> last element at kth set,
+// [X X X X j] (X X X i) -> sum
 
-// dp[i][k] = sum(k set)
+// dp[i][k] = min(dp[i][k], max(dp[j][k-1], sum));
 
-// X | X X | X  | [j X X i]
-//          sum = j+i+X+X
-
-// [j:i] -> at kth set
+// [j] (X X X X X X X i) , k = 1
