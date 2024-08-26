@@ -2,6 +2,15 @@
 #include <iostream>
 #include <string>
 #include <map>
+#include <stack>
+#include <algorithm>
+#include <numeric>
+#include <unordered_set>
+#include <unordered_map>
+#include <queue>
+#include <functional>
+#include <sstream>
+#include <set>
 
 using namespace std;
 
@@ -17,42 +26,33 @@ class Solution
 public:
     ListNode *detectCycle(ListNode *head)
     {
-        // Tortoise-Hare Algorithm
-        // O(n), O(1)
         if (!head)
             return nullptr;
+
         ListNode *slow = head, *fast = head;
 
+        bool ok = false;
         while (fast->next && fast->next->next)
         {
             slow = slow->next;
             fast = fast->next->next;
-            if (fast == slow)
+
+            if (slow == fast)
             {
-                fast = head;
-                while (fast != slow)
-                {
-                    fast = fast->next;
-                    slow = slow->next;
-                }
-                return slow;
+                ok = true;
+                break;
             }
         }
-        return nullptr;
-    }
-    ListNode *detectCycle_naive(ListNode *head)
-    {
-        // Naive solution, w/ map: O(n), O(n)
-        map<ListNode *, bool> pmap;
-        ListNode *cur = head;
-        while (cur)
+
+        if (!ok)
+            return nullptr;
+
+        fast = head;
+        while (fast != slow)
         {
-            if (pmap.count(cur))
-                return cur;
-            else
-                pmap[cur] = true;
-            cur = cur->next;
+            fast = fast->next;
+            slow = slow->next;
         }
-        return nullptr;
+        return fast;
     }
 };
