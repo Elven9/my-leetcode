@@ -8,3 +8,7 @@ Optimization:
 
 - Calculate with minimum 1-1 sliding windows
 - Optimize goal == 0 cases
+
+| Solution Idx | Time Complexity | Space Complexity | Comment                |
+| ------------ | --------------- | ---------------- | ---------------------- |
+| 2            | O(n)            | O(n)             | Prefix + Hash solution |
