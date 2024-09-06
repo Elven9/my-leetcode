@@ -1,6 +1,16 @@
 #include <vector>
 #include <iostream>
 #include <string>
+#include <map>
+#include <stack>
+#include <algorithm>
+#include <numeric>
+#include <unordered_set>
+#include <unordered_map>
+#include <queue>
+#include <functional>
+#include <sstream>
+#include <set>
 
 using namespace std;
 
@@ -9,44 +19,27 @@ class Solution
 public:
     int findDuplicate(vector<int> &nums)
     {
-        // Naive solution 1: O(n), O(n) with hashtable
-        // Naive solution 2: O(nlogn), O(1), sort and scan, array'd been modified.
-        // Naive solution 3: O(n^2), O(1), scan [1,n] and check count
+        int l = 1, r = nums.size() - 1;
 
-        // Let's Try Binary Search Solution
-        // O(nlogn), O(1)
-
-        int st = 1, ed = nums.size();
-
-        while (st < ed)
+        while (l < r)
         {
-            int cnt = 0, mcnt = 0;
-            int mid = (st + ed) / 2;
-
-            for (int n : nums)
-            {
-                if (n == mid)
-                    mcnt++;
-                else if (n < mid)
-                    cnt++;
-            }
-
-            cout << "[" << st << ", " << ed << ")"
-                 << ": cnt: " << cnt << " mcnt: " << mcnt << endl;
-
-            if (mcnt > 1)
-                return mid;
-
-            if (cnt <= mid - 1)
-            {
-                st = mid + 1;
-            }
+            int mid = l + (r - l) / 2;
+            if (check(nums, mid))
+                l = mid + 1;
             else
-            {
-                ed = mid;
-            }
+                r = mid;
         }
 
-        return 0;
+        return l;
+    }
+
+    bool check(vector<int> &nums, int T)
+    {
+        int cnt = 0;
+        for (auto &n : nums)
+            if (n <= T)
+                cnt++;
+
+        return cnt <= T;
     }
 };
