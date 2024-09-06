@@ -28,12 +28,12 @@ public:
 
         while (l < r)
         {
-            int mid = l + (r - l) / 2;
+            int mid = r - (r - l) / 2;
 
             if (check(nums, k, mid))
-                l = mid + 1;
+                r = mid - 1;
             else
-                r = mid;
+                l = mid;
         }
 
         return l;
@@ -43,9 +43,9 @@ public:
     {
         int cnt = 0;
         for (auto &n : nums)
-            if (n > T)
+            if (n >= T)
                 cnt++;
 
-        return cnt + 1 > k;
+        return cnt < k;
     }
 };
