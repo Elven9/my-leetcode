@@ -18,28 +18,20 @@ class Solution
 public:
     int hIndex(vector<int> &C)
     {
+        // search on index
         int n = C.size();
-        int l = 0, r = C.size() - 1;
+        int l = 0, r = n - 1;
 
-        while (l <= r)
+        while (l < r)
         {
             int mid = l + (r - l) / 2;
             if (n - mid > C[mid])
                 l = mid + 1;
             else
-                r = mid - 1;
+                r = mid;
         }
 
-        return n - l;
+        // 可能會有找不到的狀況
+        return n - l <= C[l] ? n - l : 0;
     }
 };
-
-// Binary search
-
-// if C[i] > n-i ==> search ed+st /2
-
-// 0 0 0 0 0
-
-// 5 5 5 5 5
-
-// 6 6 6 6 6
