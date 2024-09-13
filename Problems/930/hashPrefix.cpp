@@ -19,15 +19,20 @@ class Solution
 public:
     int numSubarraysWithSum(vector<int> &nums, int goal)
     {
-        unordered_map<int, int> tb;
-        tb[0] = 1;
+        // 如果用純 prefix sum，就需要 O(n^2)
+        // 這個 MAP 是用來記錄之前出現過 [sum] 的 frequency
+        unordered_map<int, int> MAP;
+
+        MAP[0] = 1;
         int sum = 0, res = 0;
         for (auto &n : nums)
         {
             sum += n;
-            res += tb[sum - goal];
-            tb[sum]++;
+            if (MAP.find(sum - goal) != MAP.end())
+                res += MAP[sum - goal];
+            MAP[sum]++;
         }
+
         return res;
     }
 };
