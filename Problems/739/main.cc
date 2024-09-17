@@ -1,40 +1,35 @@
 #include <vector>
 #include <iostream>
 #include <string>
+#include <map>
+#include <stack>
+#include <algorithm>
+#include <numeric>
+#include <unordered_set>
+#include <unordered_map>
+#include <queue>
+#include <functional>
+#include <sstream>
+#include <set>
 
 using namespace std;
 
 class Solution
 {
 public:
-    vector<int> dailyTemperatures(vector<int> &temperatures)
+    vector<int> dailyTemperatures(vector<int> &T)
     {
-        // Naive Solution, Scan Twice: O(n^2), O(1)
-        // Stack Based Solution: O(n), O(n)
+        int n = T.size();
+        stack<int> st;
 
-        // Runtime Complexity: Stack to use simple array. STL is BAD for simple case.
-
-        vector<int> res(temperatures.size(), 0);
-        int n = temperatures.size(), tmp;
-        int stack[n], sp = -1;
-
-        for (int i = 0; i < n; i++)
+        vector<int> res(n, 0);
+        for (int i = n - 1; i >= 0; i--)
         {
-            // Update Stack
-            while (sp != -1)
-            {
-                tmp = stack[sp];
-                if (temperatures[tmp] < temperatures[i])
-                {
-                    res[tmp] = i - tmp;
-                    sp--;
-                }
-                else
-                {
-                    break;
-                }
-            }
-            stack[++sp] = i;
+            while (!st.empty() && T[st.top()] <= T[i])
+                st.pop();
+            if (!st.empty())
+                res[i] = st.top() - i;
+            st.push(i);
         }
 
         return res;
