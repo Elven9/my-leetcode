@@ -28,6 +28,8 @@ public:
         stack<int> st;
         for (int i = 0; i < n; i++)
         {
+            // > to deal w/ duplicate subarray calculation
+            // 不然其實應該要是 >= 的。（相等的已經在 left -> right scan 中處理）
             while (!st.empty() && arr[st.top()] > arr[i])
             {
                 nextSmaller[st.top()] = i;
@@ -39,7 +41,6 @@ public:
             st.pop();
         for (int i = n - 1; i >= 0; i--)
         {
-            // >= to deal w/ duplicate subarray calculation
             while (!st.empty() && arr[st.top()] >= arr[i])
             {
                 prevSmaller[st.top()] = i;
@@ -61,3 +62,9 @@ public:
 // [X X (X X i)] -> 快一點的 O(n^2), select end, may work
 
 // greedy three pass solution
+
+// maintain a strictly increasing sequence w/ stack
+
+// 6 5 3 4 5 3 2 1
+
+// [3 1] 2 4
