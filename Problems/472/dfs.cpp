@@ -15,58 +15,14 @@
 
 using namespace std;
 
-struct Node
-{
-    bool isEnd;
-    Node *ch[26];
-    Node()
-    {
-        isEnd = false;
-        for (int i = 0; i < 26; i++)
-            ch[i] = nullptr;
-    }
-};
-
-class Trie
-{
-public:
-    Node *root;
-    Trie() { root = new Node(); }
-    void insert(string &word)
-    {
-        Node *cur = root;
-        for (auto &w : word)
-        {
-            int idx = w - 'a';
-            if (!cur->ch[idx])
-                cur->ch[idx] = new Node();
-            cur = cur->ch[idx];
-        }
-        cur->isEnd = true;
-    }
-    bool has(string word)
-    {
-        Node *cur = root;
-        for (auto &w : word)
-        {
-            int idx = w - 'a';
-            if (!cur->ch[idx])
-                return false;
-            cur = cur->ch[idx];
-        }
-        return cur->isEnd;
-    }
-};
-
 class Solution
 {
 public:
-    Trie *dict;
+    unordered_set<string> dict;
     vector<string> findAllConcatenatedWordsInADict(vector<string> &words)
     {
         sort(words.begin(), words.end(), [](string &a, string &b)
              { return a.size() < b.size(); });
-        dict = new Trie();
 
         vector<string> res;
         vector<int> visited(30, 0);
@@ -76,7 +32,7 @@ public:
                 res.push_back(w);
             for (int i = 0; i < 30; i++)
                 visited[i] = 0;
-            dict->insert(w);
+            dict.insert(w);
         }
 
         return res;
@@ -90,7 +46,7 @@ public:
             return visited[st] == 1;
         for (int i = st; i < word.size(); i++)
         {
-            if (dict->has(word.substr(st, i - st + 1)) && dfs(word, i + 1, visited))
+            if (dict.find(word.substr(st, i - st + 1)) != dict.end() && dfs(word, i + 1, visited))
             {
                 visited[st] = 1;
                 return true;
