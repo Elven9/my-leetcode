@@ -19,40 +19,46 @@ class Solution
 public:
     int maximumSwap(int num)
     {
-        vector<int> N;
+        // greedy
+        vector<int> digits;
         while (num > 0)
         {
-            N.push_back(num % 10);
+            digits.insert(digits.begin(), num % 10);
             num /= 10;
         }
-        reverse(N.begin(), N.end());
 
-        vector<int> MAP(10, INT_MIN);
-        int n = N.size();
-        for (int i = 0; i < n; i++)
-            if (i > MAP[N[i]])
-                MAP[N[i]] = i;
-
-        // scan from left to right
-        bool swapped = false;
-        for (int i = 0; i < N.size(); i++)
+        vector<int> cand(digits.size(), -1);
+        int MAX = INT_MIN, idx = -1;
+        for (int i = digits.size() - 1; i >= 0; i--)
         {
-            for (int j = 9; j > N[i]; j--)
+            if (digits[i] < MAX)
             {
-                if (MAP[j] == INT_MIN || MAP[j] < i)
-                    continue;
-                swap(N[i], N[MAP[j]]);
-                swapped = true;
+                cand[i] = idx;
+            }
+
+            if (digits[i] > MAX)
+            {
+                MAX = digits[i];
+                idx = i;
+            }
+        }
+
+        for (int i = 0; i < digits.size(); i++)
+        {
+            if (cand[i] != -1)
+            {
+                swap(digits[i], digits[cand[i]]);
                 break;
             }
-            if (swapped)
-                break;
         }
 
         int res = 0;
-        for (auto &d : N)
-            res = res * 10 + d;
-
+        for (auto &d : digits)
+        {
+            res += d;
+            res *= 10;
+        }
+        res /= 10;
         return res;
     }
 };
