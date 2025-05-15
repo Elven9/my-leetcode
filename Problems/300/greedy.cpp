@@ -17,20 +17,23 @@ class Solution
 public:
     int lengthOfLIS(vector<int> &nums)
     {
-        int n = nums.size();
+        // 不用 stack 的原因是這樣可以用 binary search 直接搜尋，O(n) -> O(logn)
         vector<int> lis;
 
-        for (int i = 0; i < n; i++)
+        for (auto &n : nums)
         {
-            auto pos = lower_bound(lis.begin(), lis.end(), nums[i]);
-            if (pos == lis.end())
-                lis.push_back(nums[i]);
+            auto it = lower_bound(lis.begin(), lis.end(), n);
+
+            if (it == lis.end())
+                lis.push_back(n);
             else
-                *pos = nums[i];
+                *it = n;
         }
 
         return lis.size();
     }
 };
+
+// Greedy
 
 // try to minimize current LIS
