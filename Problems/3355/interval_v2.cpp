@@ -20,24 +20,21 @@ class Solution
 public:
     bool isZeroArray(vector<int> &nums, vector<vector<int>> &queries)
     {
-        int n = nums.size(), m = queries.size();
-        sort(queries.begin(), queries.end());
+        int n = nums.size();
+        vector<int> in(n, 0);
+        vector<int> out(n + 1, 0);
 
-        priority_queue<int, vector<int>, greater<>> pq;
+        for (auto &q : queries)
+        {
+            in[q[0]]++;
+            out[q[1] + 1]++;
+        }
 
-        int j = 0;
+        int cnt = 0;
         for (int i = 0; i < n; i++)
         {
-            while (!pq.empty() && pq.top() < i)
-                pq.pop();
-
-            while (j < m && queries[j][0] <= i)
-            {
-                pq.push(queries[j][1]);
-                j++;
-            }
-
-            if (pq.size() < nums[i])
+            cnt += in[i] - out[i];
+            if (cnt < nums[i])
                 return false;
         }
         return true;
