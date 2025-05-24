@@ -1,6 +1,17 @@
 #include <vector>
 #include <iostream>
 #include <string>
+#include <map>
+#include <stack>
+#include <algorithm>
+#include <numeric>
+#include <unordered_set>
+#include <unordered_map>
+#include <queue>
+#include <functional>
+#include <sstream>
+#include <set>
+#include <cctype>
 
 using namespace std;
 
@@ -9,32 +20,20 @@ class Solution
 public:
     vector<vector<int>> merge(vector<vector<int>> &intervals)
     {
-        // Naive solution: flag position in space records, O(n^2), O(range)
-        // Maybe we can sort interval and scan them
-        // -> O(nlogn), O(1)
+        sort(intervals.rbegin(), intervals.rend());
 
-        // Use custom comparator if it's a MUST.
-
-        // Sort
-        sort(intervals.begin(), intervals.end());
-
-        // Scan and Merge
         vector<vector<int>> res;
-        res.push_back(intervals[0]);
-
-        for (int i = 1; i < intervals.size(); i++)
+        do
         {
-            vector<int> &tmp = res.back();
-
-            if (intervals[i][0] > tmp[1])
+            int st = intervals.back()[0], ed = intervals.back()[1];
+            intervals.pop_back();
+            while (intervals.size() > 0 && intervals.back()[0] <= ed)
             {
-                res.push_back(intervals[i]);
+                ed = max(ed, intervals.back()[1]);
+                intervals.pop_back();
             }
-            else
-            {
-                tmp[1] = max(tmp[1], intervals[i][1]);
-            }
-        }
+            res.push_back({st, ed});
+        } while (intervals.size() > 0);
 
         return res;
     }
