@@ -26,16 +26,20 @@ public:
         for (int i = 0; i < n; i++)
             MAP[words[i]] = i;
 
-        // 用來去重複 result 的
+        // 1. 用來去重複 result 的
+        // 2. 斷點演算法只會跟字串長度比較小的有關
         sort(words.begin(), words.end(), [](string &a, string &b)
              { return a.size() < b.size(); });
 
         unordered_set<string> SET;
+        // 長度比較小的字串會先進到 set 中
         vector<vector<int>> res;
         for (int i = 0; i < n; i++)
         {
             string &w = words[i];
 
+            // 基本上就是斷點檢查。假設其中一半 substr 是 palindrome 就需要去 check
+            // 剩餘另一半加曾經出現過的 str 是否可組成新的 palindrome
             for (int j = 0; j <= w.size(); j++)
             {
                 if (check(w, 0, j - 1))
