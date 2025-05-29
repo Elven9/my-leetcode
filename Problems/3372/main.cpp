@@ -15,35 +15,24 @@
 
 using namespace std;
 
-struct Node
-{
-    vector<int> next;
-    int idx;
-};
-
 class Solution
 {
 public:
     vector<int> maxTargetNodes(vector<vector<int>> &edges1, vector<vector<int>> &edges2, int k)
     {
         int n = edges1.size() + 1, m = edges2.size() + 1;
-        vector<Node> t1(n);
-        vector<Node> t2(m);
-
-        for (int i = 0; i < n; i++)
-            t1[i].idx = i;
-        for (int i = 0; i < m; i++)
-            t2[i].idx = i;
+        vector<vector<int>> t1(n);
+        vector<vector<int>> t2(m);
 
         for (auto &e : edges1)
         {
-            t1[e[0]].next.push_back(e[1]);
-            t1[e[1]].next.push_back(e[0]);
+            t1[e[0]].push_back(e[1]);
+            t1[e[1]].push_back(e[0]);
         }
         for (auto &e : edges2)
         {
-            t2[e[0]].next.push_back(e[1]);
-            t2[e[1]].next.push_back(e[0]);
+            t2[e[0]].push_back(e[1]);
+            t2[e[1]].push_back(e[0]);
         }
 
         vector<int> res(n);
@@ -56,7 +45,7 @@ public:
         return res;
     }
 
-    int cal(vector<Node> &tree, int st, int k)
+    int cal(vector<vector<int>> &tree, int st, int k)
     {
         queue<int> q;
         vector<bool> visited(1001, false);
@@ -73,9 +62,9 @@ public:
                 int t = q.front();
                 q.pop();
 
-                for (auto &c : tree[t].next)
+                for (auto &c : tree[t])
                 {
-                    if (c == t || visited[c])
+                    if (visited[c])
                         continue;
                     q.push(c);
                     visited[c] = true;
