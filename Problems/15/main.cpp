@@ -11,6 +11,7 @@
 #include <functional>
 #include <sstream>
 #include <set>
+#include <cctype>
 
 using namespace std;
 
@@ -21,51 +22,34 @@ public:
     {
         int n = nums.size();
         sort(nums.begin(), nums.end());
-
         vector<vector<int>> res;
 
-        int a = 0;
-        while (a < n && nums[a] <= 0)
+        int l = 0, m = 0, r = 0;
+        while (l < n - 2)
         {
-            int sum = -nums[a];
-            int l = a + 1, r = n - 1;
-
-            while (l < r)
+            m = l + 1;
+            r = n - 1;
+            while (m < r)
             {
-                int tmp = nums[l] + nums[r];
-                if (tmp == sum)
-                {
-                    res.push_back({nums[a], nums[l], nums[r]});
-                    l++;
+                int v = nums[l] + nums[m] + nums[r];
+                if (v < 0)
+                    m++;
+                else if (v > 0)
                     r--;
-                    while (l < n && nums[l] == nums[l - 1])
-                        l++;
-                    while (r >= 0 && nums[r] == nums[r + 1])
-                        r--;
-                }
-                else if (tmp < sum)
-                {
-                    l++;
-                    while (l < n && nums[l] == nums[l - 1])
-                        l++;
-                }
                 else
                 {
-                    r--;
-                    while (r >= 0 && nums[r] == nums[r + 1])
-                        r--;
+                    res.push_back({nums[l], nums[m], nums[r]});
+                    m++;
+                    while (m < r && nums[m] == nums[m - 1])
+                        m++;
                 }
             }
-            a++;
-            while (a < n && nums[a] == nums[a - 1])
-                a++;
+            l++;
+            while (l < n - 2 && nums[l] == nums[l - 1])
+                l++;
         }
-
         return res;
     }
 };
 
-// Thought Process
-// 1. at least one or two element that as negative sign or one element as zero
-// 2. shrink from both side, since the element's already sorted, we can shinrk the
-// interval by difference with target sum
+// O(n^2) two layer two pointers ?
