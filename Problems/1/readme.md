@@ -4,6 +4,7 @@
 | ------------ | --------------- | ---------------- | ---------------------------------------------------- |
 | 1            | O(n^2)          | O(n)             | Most native way to solve the problem                 |
 | 2            | O(n)            | O(n)             | Implement with Hash table to speed up lookup process |
+| 3            | O(nlogn)        | O(1)             | sort + two pointer                                   |
 
 ## Sol 1
 
