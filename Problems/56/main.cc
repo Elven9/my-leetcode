@@ -18,22 +18,20 @@ using namespace std;
 class Solution
 {
 public:
-    vector<vector<int>> merge(vector<vector<int>> &intervals)
+    vector<vector<int>> merge(vector<vector<int>> &I)
     {
-        sort(intervals.rbegin(), intervals.rend());
-
+        int n = I.size();
+        sort(I.begin(), I.end());
         vector<vector<int>> res;
-        do
+        int i = 0;
+        while (i < n)
         {
-            int st = intervals.back()[0], ed = intervals.back()[1];
-            intervals.pop_back();
-            while (intervals.size() > 0 && intervals.back()[0] <= ed)
-            {
-                ed = max(ed, intervals.back()[1]);
-                intervals.pop_back();
-            }
+            int st = I[i][0], ed = I[i][1];
+            i++;
+            while (i < n && I[i][0] <= ed)
+                ed = max(ed, I[i++][1]);
             res.push_back({st, ed});
-        } while (intervals.size() > 0);
+        }
 
         return res;
     }
