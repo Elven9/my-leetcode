@@ -1,5 +1,17 @@
 #include <vector>
+#include <iostream>
+#include <string>
 #include <map>
+#include <stack>
+#include <algorithm>
+#include <numeric>
+#include <unordered_set>
+#include <unordered_map>
+#include <queue>
+#include <functional>
+#include <sstream>
+#include <set>
+#include <cctype>
 
 using namespace std;
 
@@ -8,57 +20,16 @@ class Solution
 public:
     int majorityElement(vector<int> &nums)
     {
-        // https://www.cs.utexas.edu/~moore/best-ideas/mjrty
-        int major = 0, cand = 0;
-        for (int i = 0; i < nums.size(); i++)
-        {
-            if (cand == 0)
+        int cand = 0, cnt = 0;
+        for (auto &n : nums)
+            if (cnt == 0)
             {
-                major = nums[i];
-                cand = 1;
-            }
-            else if (major == nums[i])
-            {
-                cand++;
+                cand = n;
+                cnt = 1;
             }
             else
-            {
-                cand--;
-            }
-        }
-        return major;
-    }
+                cnt += n == cand ? 1 : -1;
 
-    int majorityElement_withMap(vector<int> &nums)
-    {
-        // Naive solution: Sort and Scan -> O(nlogn), O(1)
-        // With hashmap: O(n), O(n)
-        map<int, int> valCount;
-
-        for (int i = 0; i < nums.size(); i++)
-        {
-            auto it = valCount.find(nums[i]);
-            if (it != valCount.end())
-            {
-                valCount[nums[i]] += 1;
-            }
-            else
-            {
-                valCount[nums[i]] = 1;
-            }
-        }
-
-        // Check Result
-        int res, tmp = 0;
-        for (auto it = valCount.begin(); it != valCount.end(); it++)
-        {
-            if (it->second > tmp)
-            {
-                res = it->first;
-                tmp = it->second;
-            }
-        }
-
-        return res;
+        return cand;
     }
 };

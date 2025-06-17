@@ -4,3 +4,5 @@
 | ------------ | --------------- | ---------------- | -------------------------------------- |
 | 1            | O(n)            | O(n)             | Scan and Search w/ map                 |
 | 2            | O(n)            | O(1)             | MJRTY - A Fast Majority Vote Algorithm |
+
+https://www.cs.utexas.edu/~moore/best-ideas/mjrty
