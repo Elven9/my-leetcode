@@ -11,6 +11,7 @@
 #include <functional>
 #include <sstream>
 #include <set>
+#include <cctype>
 
 using namespace std;
 
@@ -19,48 +20,32 @@ class Solution
 public:
     int threeSumClosest(vector<int> &nums, int target)
     {
-        int n = nums.size();
         sort(nums.begin(), nums.end());
+        int n = nums.size();
+        int l = 0;
 
-        int res = 0, dist = INT_MAX;
-        int a = 0;
-        while (a < n)
+        int res = INT_MAX / 2;
+        while (l < n - 2)
         {
-            int l = a + 1, r = n - 1;
-            int sum = target - nums[a];
+            int m = l + 1, r = n - 1;
 
-            while (l < r)
+            while (m < r)
             {
-                int tmp = target - nums[a] - nums[l] - nums[r];
-                if (abs(tmp) < dist)
-                {
-                    dist = abs(tmp);
-                    res = nums[a] + nums[l] + nums[r];
-                }
-                if (dist == 0)
-                    return res;
-
-                if (tmp > 0)
-                {
-                    l++;
-                    while (l < n && nums[l] == nums[l - 1])
-                        l++;
-                }
+                int v = nums[l] + nums[m] + nums[r];
+                if (abs(target - v) < abs(target - res))
+                    res = v;
+                if (v < target)
+                    m++;
+                else if (v > target)
+                    r--;
                 else
                 {
+                    m++;
                     r--;
-                    while (r >= 0 && nums[r] == nums[r + 1])
-                        r--;
                 }
             }
-
-            a++;
-            while (a < n && nums[a] == nums[a - 1])
-                a++;
+            l++;
         }
-
         return res;
     }
 };
-
-// a+b+c = target
