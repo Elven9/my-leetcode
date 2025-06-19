@@ -23,6 +23,9 @@ public:
         // Scanning Line !!!
         // 有點像是用 timestamp 在處理這個問題，也不 care 是哪個會議ㄉ
         // 反正就是個 timestamp
+
+        // 這裡反而不能用 start -> -1, end -> 1
+        // 因為是取 max 的關係，這樣設定可以讓 -1 的都先被執行到，同個 ts 不會有先開始後結束的問題
         vector<pair<int, int>> ts;
         for (auto &i : intervals)
         {
