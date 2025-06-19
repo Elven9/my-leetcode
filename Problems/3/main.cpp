@@ -20,26 +20,24 @@ public:
     int lengthOfLongestSubstring(string s)
     {
         int n = s.size();
-        vector<int> tb(256, 0);
+        int l = 0, r = 0;
+        vector<int> freq(256, 0);
 
-        int l = 0, r = 0; // [l,r)
         int res = 0;
         while (r < n)
         {
-            if (tb[s[r]] == 0)
+            freq[s[r]]++;
+            if (freq[s[r]] > 1)
             {
-                tb[s[r]]++;
-                r++;
-                res = max(res, r - l);
+                do
+                    freq[s[l]]--;
+                while (s[l++] != s[r]);
             }
-            else
-            {
-                while (s[l] != s[r])
-                    tb[s[l++]]--;
-                tb[s[l++]]--;
-            }
+            res = max(res, r - l + 1);
+            r++;
         }
-
         return res;
     }
 };
+
+// sliding windows ->
