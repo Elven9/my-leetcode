@@ -20,49 +20,38 @@ public:
     string minWindow(string s, string t)
     {
         int n = s.size();
-        vector<int> freq(256, INT_MIN);
-        int CNT = 0;
+        vector<int> freq(256, 0);
+        int k = 0;
         for (auto &c : t)
-        {
-            if (freq[c] == INT_MIN)
-            {
-                freq[c] = 0;
-                CNT++;
-            }
             freq[c]++;
-        }
+        for (auto &f : freq)
+            k += f != 0;
 
-        pair<int, int> res = {-1, n};
-        int l = 0, r = 0; // [l,r)
-        while (r < n || CNT == 0)
+        int l = 0, r = 0, len = INT_MAX;
+        string res = "";
+        while (r < n)
         {
-            if (CNT != 0)
+            freq[s[r]]--;
+            if (freq[s[r]] == 0)
+                k--;
+
+            if (k == 0)
             {
-                int &f = freq[s[r]];
-                if (f != INT_MIN)
+                // shrink left
+                while (freq[s[l]] < 0)
+                    freq[s[l++]]++;
+                if (r - l + 1 < len)
                 {
-                    f--;
-                    if (f == 0)
-                        CNT--;
+                    len = r - l + 1;
+                    res = s.substr(l, len);
                 }
-                r++;
+                freq[s[l++]]++;
+                k++;
             }
-            else
-            {
-                if (res.second - res.first > r - l)
-                    res = {l, r};
-                int &f = freq[s[l]];
-                if (f != INT_MIN)
-                {
-                    f++;
-                    if (f == 1)
-                        CNT++;
-                }
-                l++;
-            }
+            r++;
         }
-        if (res.first == -1)
-            return "";
-        return s.substr(res.first, res.second - res.first);
+        return res;
     }
 };
+
+// sliding windows
