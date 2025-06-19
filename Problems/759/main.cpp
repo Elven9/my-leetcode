@@ -41,6 +41,7 @@ public:
             for (auto &i : e)
             {
                 // 小細節，這邊需要反過來，sort 才會把 start 排在 end 前面
+                // 這樣才可以保證後續 last 1, cur 0 與 last 0, cur 1 的檢查會保證該開始都先開始了
                 ts.push_back({i.start, -1});
                 ts.push_back({i.end, 1});
             }
