@@ -11,6 +11,7 @@
 #include <functional>
 #include <sstream>
 #include <set>
+#include <cctype>
 
 using namespace std;
 
@@ -19,22 +20,28 @@ class Solution
 public:
     vector<int> findAnagrams(string s, string p)
     {
-        vector<int> P(26, 0);
-        vector<int> S(26, 0);
-        for (auto &c : p)
-            P[c - 'a']++;
-
+        int n = s.size(), m = p.size();
         vector<int> res;
-        for (int i = 0; i < s.size(); i++)
-        {
+        vector<int> freq(256, 0);
+        int k = 0; // kind
+        for (auto &c : p)
+            freq[c]++;
+        for (auto &f : freq)
+            k += f > 0;
 
-            S[s[i] - 'a']++;
-            if (i >= p.size())
-                S[s[i - p.size()] - 'a']--;
-            if (S == P)
-                res.push_back(i - p.size() + 1);
+        for (int i = 0; i < n; i++)
+        {
+            if (--freq[s[i]] == 0)
+                k--;
+            if (i >= m && ++freq[s[i - m]] == 1)
+                k++;
+
+            if (k == 0)
+                res.push_back(i - m + 1);
         }
 
         return res;
     }
 };
+
+// sliding windows freq check
