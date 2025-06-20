@@ -19,21 +19,23 @@ class Solution
 public:
     int longestConsecutive(vector<int> &nums)
     {
-        unordered_set<int> s(nums.begin(), nums.end());
+        // should use unordered_set, otherwise the algorithm
+        // will become O(nlogn), which is unnecessary.
+        unordered_set<int> SET(nums.begin(), nums.end());
 
         int res = 0;
-
-        for (auto x : s)
+        // don't scan original nums !!!
+        for (auto &n : SET)
         {
-            if (s.find(x - 1) == s.end())
-            {
-                int cnt = 0;
-                while (s.find(x++) != s.end())
-                    cnt++;
-                res = max(res, cnt);
-            }
+            if (SET.find(n - 1) != SET.end())
+                continue;
+            int cur = n;
+            while (SET.find(cur) != SET.end())
+                cur++;
+            res = max(res, cur - n);
         }
-
         return res;
     }
 };
+
+// O(n) time, O(n) space
